@@ -4,7 +4,7 @@
 
 > Algoritmo para obtenção e análise de postagens do Twitter com a Geolocalização ativa.
 
-## Menu (#menu)
+## Menu
 
   - [Execução](#execução)
   - [Funcionamento](#funcionamento)  
@@ -34,4 +34,4 @@
 
   - Na página "localhost/mobilidade/analyzeData/application/removeRobos.php" é executada a remoção de todos os "usuários robôs" da base de dados, ou seja, usuários que possuem todas as suas postagens somente em coordenadas exatamente iguais, o que provavelmente são postagens automatizadas;
 
-[⬆ voltar ao topo](#menu)
+[⬆ voltar ao topo](#menu-menu)
