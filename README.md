@@ -34,4 +34,4 @@
 
   - Na página "localhost/mobilidade/analyzeData/application/removeRobos.php" é executada a remoção de todos os "usuários robôs" da base de dados, ou seja, usuários que possuem todas as suas postagens somente em coordenadas exatamente iguais, o que provavelmente são postagens automatizadas;
 
-[⬆ voltar ao topo](#menu-menu)
+[⬆ voltar ao topo](#menu)
