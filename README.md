@@ -1,5 +1,7 @@
 # Trabalho de conclusão de curso II
 
+Autor: Roberto Delavi de Araújo, Julho, 2017.
+
 ## Um Estudo de Caso de Análise do Perfil de Mobilidade de Usuários do Twitter
 
 > Algoritmo para obtenção e análise de postagens do Twitter com a Geolocalização ativa.
