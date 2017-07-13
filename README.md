@@ -6,7 +6,7 @@
 
 ## Menu
 
-  - [Requisitos básicos](#requisitos-basicos)
+  - [Requisitos básicos](#requisitos-básicos)
   - [Execução](#execução)
   - [Funcionamento](#funcionamento)  
 
