@@ -6,12 +6,10 @@ class MySql
 {
     //conexao com o banco de dados
     function connOpen()
-    {	
-		$server   = 'localhost';	// Endereço do servidor
-		$user     = 'root';			// Usuário				
-		$passw	  = '';	// Senha
-		$database = 'mobilidade';		// Nome Banco
-		   	
+    {			
+        // Dados da conexão
+        include('conecta.php');
+
 		@$this->conn = mysql_connect($server, $user, $passw);
 		mysql_set_charset('utf8');
         if (!$this->conn)
@@ -108,4 +106,5 @@ class MySql
 		return mysql_fetch_field($array, $num);
 	}
 }
+
 ?>

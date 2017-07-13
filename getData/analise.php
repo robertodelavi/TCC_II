@@ -1,4 +1,7 @@
 <?php 
+	// Conecta ao BD
+	include('../library/conecta.php');
+
 	require_once('TwitterAPIExchange.php');
 	/** Set access tokens here - see: https://dev.twitter.com/apps/ **/
 	$settings = array(
@@ -55,8 +58,10 @@
 
     if($string["errors"][0]["message"] != "") {
     	echo "<h3>Sorry, there was a problem.</h3><p>Twitter returned the following error message:</p><p><em>".$string[errors][0]["message"]."</em></p>";
+    	
     	//
-    	echo "<meta http-equiv='Refresh' CONTENT='searchOnTwitter.php'>";	
+    	echo "<meta http-equiv='Refresh' CONTENT='0;URL=".$url_page."/mobilidade/getData/searchOnTwitter.php'>";	
+    	//echo "<meta http-equiv='Refresh' CONTENT='searchOnTwitter.php'>";	
     	//
     	exit();
     }
@@ -108,34 +113,28 @@
 			$totalGer++;	
 	}
 	date_default_timezone_set('America/Sao_Paulo');
-	echo '<br/><br/>TIME: '.date('Y-m-d H:i:s', strtotime($time[5]))." -- ".$time[5]."<br/><br/>";
+	
 	//
 	echo "<b>Total Geral:</b> ".$totalGer."<br/>";
 	echo "<b>Total Geocode:</b> ".$totalGeo."<br/>";
 	echo "<b>Total Coordinates:</b> ".$totalCoo."<br/>";
 	echo "<b>Total Place:</b> ".$totalPla."<br/>";
-
-	// Conecta ao BD		
-    require_once '../library/DataManipulation.php';
-    require_once '../library/MySql.php';
-    $data = new DataManipulation();    
-    
-    $sql = 'SELECT * 
-    		FROM users
-    		WHERE id = "216785886"';
-    $teste = $data->find('dynamic', $sql);
-
-	// Insere tweets
-	for($i=0; $i< $totalGeo; $i++){	
-		$sql = 'INSERT INTO tweets (id, id_user, text, latitude, longitude, source, time) VALUES ('.$id[$i].', '.$id_user[$i].', "'.$text[$i].'", '.$latitude[$i].', '.$longitude[$i].', "'.$source[$i].'", "'.$time[$i].'")';		
-		$data->executaSQL($sql);		
-	}
-
-	// Insere usuários
-	for($i=0; $i< count($_POST['id']); $i++){	
-		$sql = 'INSERT INTO users (id, screen_name, name, location, description) VALUES ('.$_POST['id'][$i].', "'.$_POST['screen_name'][$i].'", "'.$_POST['name'][$i].'", "'.$_POST['location'][$i].'", "'.$_POST['description'][$i].'")';				
-		$data->executaSQL($sql);
-	}
 	
-	echo "<meta http-equiv='Refresh' CONTENT='searchOnTwitter.php'>";		
+	$conecta = mysql_connect($server, $user, $passw) or print (mysql_error()); 
+	mysql_select_db($database, $conecta) or print(mysql_error()); 		
+	// insert users
+	for($i=0; $i< count($_POST['id']); $i++){		
+		$sql = 'INSERT INTO users (id, screen_name, name, location, description) VALUES ('.$_POST['id'][$i].', "'.$_POST['screen_name'][$i].'", "'.$_POST['name'][$i].'", "'.$_POST['location'][$i].'", "'.$_POST['description'][$i].'")';		
+		mysql_query($sql, $conecta);
+	}
+	// Tweets
+	for($i=0; $i< $totalGeo; $i++){		
+		$sql = 'INSERT INTO tweets (id, id_user, text, latitude, longitude, source, time) VALUES ('.$id[$i].', '.$id_user[$i].', "'.$text[$i].'", '.$latitude[$i].', '.$longitude[$i].', "'.$source[$i].'", "'.$time[$i].'")';		
+		mysql_query($sql, $conecta);
+	}
+	mysql_close($conecta); 
+
+	echo "<meta http-equiv='Refresh' CONTENT='0;URL=".$url_page."/mobilidade/getData/searchOnTwitter.php'>";	
+		
+	
 ?>
