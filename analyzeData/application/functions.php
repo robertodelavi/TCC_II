@@ -15,22 +15,23 @@
         global $vetCoorNomes;
         global $centroides;
         global $letra;
-        //        
+        //          
         foreach ($vetCoorNomes as $coordenadaVetor => $value) {
             $possui_local = 0;
             // Pega o ponto atual e verifica a distancia com cada centroide
-            foreach ($centroides as $letraCentroide => $valuec) { // Varre este laço para cada local: A, B, C, D ...                
+            foreach ($centroides as $letraCentroide => $valuec) { // Varre este laço para cada local: A, B, C, D ...                            
+                //echo '<br>letra centroide: '.$letraCentroide;
                 $cent = explode(', ', $valuec);
                 $vet  = explode(', ', $coordenadaVetor);            
                 //
                 $dist = getDistance($cent[0], $cent[1], $vet[0], $vet[1]);
-                //                
-                if($dist <= $raio && $possui_local == 0){                    
-                    $vetCoorNomes[$coordenadaVetor] = $letraCentroide;
+                //                                    
+                if($dist <= $raio && $possui_local == 0){
                     // atualiza centroide deste local
                     $centroides[$letraCentroide] = atualiza_centroide_local($letraCentroide, $coordenadaVetor);                         
+                    $vetCoorNomes[$coordenadaVetor] = $letraCentroide;
                     $possui_local = 1;
-                }
+                }                
             }
             //
             if($possui_local == 0){ // Este ponto nao se encaixou em nehnhuma centroide, novo local             
@@ -38,7 +39,7 @@
                 $centroides[$letra] = $coordenadaVetor;     
                 $letra++;                
             }
-        }        
+        }           
     }
 
     function atualiza_centroide_local($letraCentroide, $coordenada){        
@@ -47,11 +48,10 @@
         //
         $aux     = explode(', ', $coordenada);
         $somaLat = $aux[0];
-        $somaLon = $aux[1];
-
+        $somaLon = $aux[1];        
         //
         foreach ($vetCoorNomes as $key => $value) {
-            if($value == $letraCentroide){ // varre todas as coordenadas do vetor que estao no local A por ex.                
+            if($value === $letraCentroide){ // varre todas as coordenadas do vetor que estao no local A por ex.                
                 $coord = explode(', ', $key);
                 //
                 $somaLat += $coord[0];
